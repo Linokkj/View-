@@ -35,7 +35,7 @@
             <div className="prime-wrapper">
               <Menu user={user} onLogout={handleLogout} busca={busca} setBusca={setBusca} />
               <Slide />
-              <Header /> 
+              <Header busca={busca}/> 
               <Footer />
             </div>
           } />
