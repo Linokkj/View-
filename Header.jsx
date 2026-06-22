@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({busca}) {
   const refFilmes = useRef(null);
   const refSeries = useRef(null);
 
@@ -30,18 +30,33 @@ function Header() {
     {id:"9",titulo:"My Hero Academia",img:"https://a.storyblok.com/f/178900/1920x1080/b736a20882/my-hero-academia-season-7-key-art-wide.png/m/1200x0/filters:quality(95)format(webp)"},
     {id:"10",titulo:"Loki",img:"https://upload.wikimedia.org/wikipedia/pt/4/4e/Loki_%28TV_series%29_logo.png"},
     {id:"11",titulo:"Better Call Saul",img:"https://i.ytimg.com/vi/Hn38T0GxGcA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAbiHDFceZ7J-EiVTJpZHcoOz-tiA"},
-]
+];
+
+  const filmesFiltrados = filmes.filter((filme) =>
+    filmes.titulo.toLowerCase().includes(busca.toLowerCase())
+    );
+  const seriesFiltrados = series.filter((serie) =>
+    series.titulo.toLowerCase().includes(busca.toLowerCase())
+    );
 
   const scroll = (ref, direction) => {
     if (ref.current) {
       const { scrollLeft, clientWidth } = ref.current;
-      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
-      ref.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
-    }
-  };
+
+      const scrollTo = 
+        direction === 'left'
+          ? scrollLeft - clientWidth
+          : scrollLeft + clientWidth;
+      ref.current.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth'
+    });
+  }
+};   
 
   return (
-    <section>
+    <>
+    {filmesFiltrados.length > 0 && ( 
     <section className="lista-filmes" id='filmes'>
       <h1 className="titulo-filme">Filmes</h1>
       
@@ -49,37 +64,34 @@ function Header() {
         <button className="slider-botao prev" onClick={() => scroll(refFilmes, 'left')}>&lt;</button>
         
         <div className="cf" ref={refFilmes} style={{ display: 'flex', overflowX: 'hidden' }}>
-          {filmes.map((filme) => (
-            <Link key={filme.id} to={`/filme/${filme.id}`}>
-              <img src={filme.img} alt={filme.titulo}/>
+          {filmesFiltrados.map((filme) => (
+            <Linl key = {filme.id} to = {`/filme/${filme.id}`}>
+              <img src={filme.img} alt= {filme.titulo}/>
               <p>{filme.titulo}</p>
             </Link>
-          ))}
+          ))} 
         </div>
         
         <button className="slider-botao next" onClick={() => scroll(refFilmes, 'right')}>&gt;</button>
       </div>
     </section>
-
-    <section className="lista-series" id='series'>
-      <h1 className="titulo-series">Series</h1>
+      {seriesFiltradas.length > 0 && (
+        <section className="lista-series" id='series'>
+        <h1 className="titulo-series">Series</h1>
       
-      <div className="cw" style={{ display: 'flex', alignItems: 'center' }}>
-        <button className="slide-botao prev" onClick={() => scroll(refSeries, 'left')}>&lt;</button>
-        
-        <div className="cf" ref={refSeries} style={{ display: 'flex', overflowX: 'hidden' }}>
-          {series.map((series) => (
-            <Link key={series.id} to={`/series/${series.id}`}>
-              <img src={series.img} alt={series.titulo}/>
-              <p>{series.titulo}</p>
-            </Link>
+        <div className="cw" style={{ display: 'flex', alignItems: 'center' }}>
+          <button className="slide-botao prev" onClick={() => scroll(refSeries, 'left')}>&lt;</button>
+          {seriesFiltradas.map((serie) => (
+          <Link key={serie.id} to = {`series/${serie.id}`}>
+            <img src={serie.img} alt={serie.titulo}/>
+            <p>{serie.titulo}</p>
+          </Link>
           ))}
-        </div>
-        
         <button className="slide-botao next" onClick={() => scroll(refSeries, 'right')}>&gt;</button>
       </div>
     </section>
-    </section>
+    )}
+    </>
   );
 }
 
