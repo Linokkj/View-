@@ -5,6 +5,20 @@ function Header({busca}) {
   const refFilmes = useRef(null);
   const refSeries = useRef(null);
 
+  const destaque = [
+    { id: "1", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "2", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "3", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "4", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "5", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "6", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "7", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "8", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "9", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
+    { id: "10", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },  
+    }
+  ]
+
   const filmes = [
     { id: "1", titulo: "Spider-Man", img: "https://m.media-amazon.com/images/S/pv-target-images/4398b4f69fe976eeb6cad4f48cf7a22c5280b245a0e832150e4ef4108c0c66bd.jpg" },
     { id: "2", titulo: "Planeta dos Macacos", img: "https://m.media-amazon.com/images/M/MV5BZjJkMTAxZGEtM2I2Yy00NjM5LThiZTMtNDEwZWU4MDRmNzNkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" },
@@ -88,6 +102,22 @@ function Header({busca}) {
           </Link>
           ))}
         <button className="slide-botao next" onClick={() => scroll(refSeries, 'right')}>&gt;</button>
+      </div>
+    </section>
+
+       {destaqueFiltradas.length > 0 && (
+        <section className="lista-destaque" id='destaque'>
+        <h1 className="titulo-destaque">Destaque</h1>
+      
+        <div className="cw" style={{ display: 'flex', alignItems: 'center' }}>
+          <button className="slide-botao prev" onClick={() => scroll(refDestaque, 'left')}>&lt;</button>
+          {destaqueFiltradas.map((destaque) => (
+          <Link key={destaque.id} to = {`destaque/${destaque.id}`}>
+            <img src={destaque.img} alt={destaque.titulo}/>
+            <p>{destaque.titulo}</p>
+          </Link>
+          ))}
+        <button className="slide-botao next" onClick={() => scroll(refDestaque, 'right')}>&gt;</button>
       </div>
     </section>
     )}
